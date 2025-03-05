@@ -388,6 +388,7 @@ class lazyset(set):
 def _read(path, encoding="utf-8", comment=";;;"):
     """Returns an iterator over the lines in the file at the given path,
     strippping comments and decoding each line to Unicode."""
+    lines = []
     if path:
         if isinstance(path, basestring) and os.path.exists(path):
             # From file path.
@@ -408,8 +409,8 @@ def _read(path, encoding="utf-8", comment=";;;"):
 
             if not line or (comment and line.startswith(comment)):
                 continue
-            yield line
-    raise StopIteration
+            lines.append(line)
+    return lines
 
 
 class Lexicon(lazydict):
